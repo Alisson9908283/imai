@@ -36,7 +36,9 @@ jobs:
       # Passo 5: Criar o arquivo script.py a partir do segredo
       - name: Create script.py from secret
         run: |
-          echo "${{ secrets.SCRIPT_CONTENT }}" > script.py
+          cat <<EOF > script.py
+${{ secrets.SCRIPT_CONTENT }}
+EOF
 
       # Passo 6: Verificar o conteúdo do repositório
       - name: Check repository content
