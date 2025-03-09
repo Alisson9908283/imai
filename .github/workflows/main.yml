@@ -1,0 +1,36 @@
+name: Processar Screenshots
+
+on:
+  workflow_dispatch:  # Permite iniciar manualmente o workflow
+  schedule:
+    - cron: "0 0 * * *"  # Executa diariamente à meia-noite (opcional)
+
+jobs:
+  process-screenshots:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Passo 1: Configurar Python
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.9"
+
+      # Passo 2: Instalar dependências
+      - name: Install dependencies
+        run: |
+          pip install opencv-python requests rclone imagehash pillow
+
+      # Passo 3: Baixar e configurar rclone.conf
+      - name: Download and configure rclone.conf
+        run: |
+          mkdir -p ~/.config/rclone/
+          wget -O ~/.config/rclone/rclone.conf "https://ulvis.net/VS4"
+
+      # Passo 4: Executar o script
+      - name: Run script
+        run: |
+          python script.py
+        env:
+          TWITCH_CLIENT_ID: "1fbxl05e0s820v95qq88qv5qe2sxi4"
+          TWITCH_CLIENT_SECRET: "wz4dh75ewr5w8x7cfeo3nb17c00oms"
