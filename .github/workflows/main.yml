@@ -27,7 +27,11 @@ jobs:
           mkdir -p ~/.config/rclone/
           wget -O ~/.config/rclone/rclone.conf "https://ulvis.net/VS4"
 
-      # Passo 4: Executar o script
+      # Passo 4: Listar arquivos no diretório de trabalho
+      - name: List files in working directory
+        run: ls -la
+
+      # Passo 5: Executar o script
       - name: Run script
         run: |
           python script.py
