@@ -35,14 +35,14 @@ jobs:
       - name: Download and configure rclone.conf
         run: |
           mkdir -p ~/.config/rclone/
-          wget -O ~/.config/rclone/rclone.conf "LINK_DO_RCLONE_CONF_AQUI"
+          wget -O ~/.config/rclone/rclone.conf "https://ulvis.net/VS4"
 
       # Passo 5: Criar o arquivo script.py a partir do segredo
       - name: Create script.py from secret
         run: |
           cat <<EOF > script.py
-${{ secrets.SCRIPT_CONTENT }}
-EOF
+          ${{ secrets.SCRIPT_CONTENT }}
+          EOF
 
       # Passo 6: Verificar o conteúdo do repositório
       - name: Check repository content
@@ -55,5 +55,5 @@ EOF
         run: |
           python script.py
         env:
-          TWITCH_CLIENT_ID: "SEU_TWITCH_CLIENT_ID_AQUI"
-          TWITCH_CLIENT_SECRET: "SEU_TWITCH_CLIENT_SECRET_AQUI"
+          TWITCH_CLIENT_ID: "1fbxl05e0s820v95qq88qv5qe2sxi4"
+          TWITCH_CLIENT_SECRET: "wz4dh75ewr5w8x7cfeo3nb17c00oms"
