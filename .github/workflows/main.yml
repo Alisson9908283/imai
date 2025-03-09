@@ -2,8 +2,12 @@ name: Processar Screenshots
 
 on:
   workflow_dispatch:  # Permite iniciar manualmente o workflow
-  schedule:
-    - cron: "0 0 * * *"  # Executa diariamente à meia-noite (opcional)
+  push:               # Dispara quando há um push para o repositório
+    branches:
+      - main          # Altere para o branch principal do seu repositório (ex.: master)
+  pull_request:       # Dispara quando há um pull request
+    branches:
+      - main          # Altere para o branch principal do seu repositório (ex.: master)
 
 jobs:
   process-screenshots:
