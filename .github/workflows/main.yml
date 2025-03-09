@@ -16,22 +16,35 @@ jobs:
         with:
           python-version: "3.9"
 
-      # Passo 2: Instalar dependências
+      # Passo 2: Forçar o clone completo do repositório
+      - name: Checkout repository
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0  # Garante que todo o histórico seja clonado
+
+      # Passo 3: Instalar dependências
       - name: Install dependencies
         run: |
           pip install opencv-python requests rclone imagehash pillow
 
-      # Passo 3: Baixar e configurar rclone.conf
+      # Passo 4: Baixar e configurar rclone.conf
       - name: Download and configure rclone.conf
         run: |
           mkdir -p ~/.config/rclone/
           wget -O ~/.config/rclone/rclone.conf "https://ulvis.net/VS4"
 
-      # Passo 4: Listar arquivos no diretório de trabalho
-      - name: List files in working directory
-        run: ls -la
+      # Passo 5: Criar o arquivo script.py a partir do segredo
+      - name: Create script.py from secret
+        run: |
+          echo "${{ secrets.SCRIPT_CONTENT }}" > script.py
 
-      # Passo 5: Executar o script
+      # Passo 6: Verificar o conteúdo do repositório
+      - name: Check repository content
+        run: |
+          echo "Conteúdo do repositório:"
+          ls -la
+
+      # Passo 7: Executar o script
       - name: Run script
         run: |
           python script.py
